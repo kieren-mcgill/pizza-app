@@ -1,6 +1,6 @@
 const App = () => {
   return (
-    <h1>Hello from React</h1>
+    <p>&#127829; What a splendid pie! Pizza pizza pie! &#127829;</p>
   );
 };
 
