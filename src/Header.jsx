@@ -11,10 +11,10 @@ const Header = ({pizzaArray}) => {
         <Link to="/" ><Button>Pizza Shop</Button> </Link>
       </Grid>
       <Grid>
-        <Link to="/basket"><Button>Basket</Button> </Link>
+        <Link to="/basket"><Badge badgeContent={pizzaArray.length} color="primary"><ShoppingCart></ShoppingCart> </Badge></Link>
+
       </Grid>
 
-        <Badge badgeContent={pizzaArray.length} color="primary"><ShoppingCart /></Badge>
 
     </Grid>
 
