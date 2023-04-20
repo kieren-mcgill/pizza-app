@@ -1,11 +1,12 @@
-import PizzaForm from "./PizzaForm";
+import Home from "./Home"
+import { BrowserRouter } from 'react-router-dom';
+
 
 const App = () => {
   return (
-    <>
-    <p>&#127829; What a splendid pie! Pizza pizza pie! &#127829;</p>
-      <PizzaForm/>
-    </>
+    <BrowserRouter>
+      <Home/>
+    </BrowserRouter>
   );
 };
 
