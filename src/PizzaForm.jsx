@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import ToppingAdder from "./ToppingAdder";
 import { toppingKeys } from "./toppings";
 
-const PizzaForm = () => {
+const PizzaForm = ({ addPizza }) => {
 
   const getToppingsState = () => {
     const initialToppings = {};
@@ -21,8 +21,6 @@ const PizzaForm = () => {
     }
   )
 
-  const [pizzaList, addToPizzaList] = useState([]);
-
   const handleChange = (e) => {
     setPizza({
       ...pizza,
@@ -32,7 +30,7 @@ const PizzaForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addToPizzaList([...pizzaList, pizza])
+    addPizza(pizza);
     setPizza({
       base: "largeDeepPan",
       toppings: getToppingsState()
@@ -69,7 +67,7 @@ const PizzaForm = () => {
         <Select id="base" label="Select your base" onChange={handleChange} value={pizza.base}>
           {baseKeys.map((base, i) => <MenuItem key={i} value={base}>{bases[base].label}</MenuItem>)}
         </Select>
-        <Typography pt={2}>You can have as many toppings as you think will fit on your pizza! Add 2 to have more of your favourites.</Typography>
+        <Typography pt={2}>You can have as many toppings as you think will fit on your pizza! You can add up to tow of each topping.</Typography>
         <div>
           {toppingKeys.map((topping, i) => <ToppingAdder key={i} topping={topping}
                                                          increaseNumber={increaseNumber} decreaseNumber={decreaseNumber}
