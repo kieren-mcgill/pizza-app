@@ -1,6 +1,6 @@
-import { Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Button, Container, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import { baseKeys, bases } from "./bases";
-import { useState } from "react";
+import React, { useState } from "react";
 import ToppingAdder from "./ToppingAdder";
 import { toppingKeys } from "./toppings";
 
@@ -62,12 +62,14 @@ const PizzaForm = () => {
   }
 
   return (
-    <>
+    <Container>
+      <h1>Create your pizza</h1>
       <FormControl>
-        <InputLabel id="base">Select Base</InputLabel>
-        <Select id="base" label="Select Base" onChange={handleChange} value={pizza.base}>
+        <InputLabel id="base">Select your base</InputLabel>
+        <Select id="base" label="Select your base" onChange={handleChange} value={pizza.base}>
           {baseKeys.map((base, i) => <MenuItem key={i} value={base}>{bases[base].label}</MenuItem>)}
         </Select>
+        <Typography pt={2}>You can have as many toppings as you think will fit on your pizza! Add 2 to have more of your favourites.</Typography>
         <div>
           {toppingKeys.map((topping, i) => <ToppingAdder key={i} topping={topping}
                                                          increaseNumber={increaseNumber} decreaseNumber={decreaseNumber}
@@ -75,7 +77,7 @@ const PizzaForm = () => {
         </div>
         <Button onClick={handleSubmit}>Add Your Pizza</Button>
       </FormControl>
-    </>
+    </Container>
   )
 }
 
