@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./Header";
 import CreateButton from "./CreateButton";
-import BasketSummary from "./BasketSummary";
+import Basket from "./Basket";
 import { useState } from "react";
 import PizzaForm from "./PizzaForm";
 
@@ -14,7 +14,6 @@ const Home = () => {
     newPizzaArray([...pizzaArray, pizza])
   }
 
-
   return (
     <>
       <header>
@@ -23,7 +22,7 @@ const Home = () => {
       <main>
         <Routes>
           <Route path="/" element={(<CreateButton/>)}/>
-          <Route path="/basket" element={(<BasketSummary/>)}/>
+          <Route path="/basket" element={(<Basket basket={pizzaArray}/>)}/>
           <Route path="/pizza-form" element={(<PizzaForm pizzaArray={pizzaArray} addPizza={addPizza}/>)}/>
           <Route path="*" element={<p>Page Not Found</p>}/>
         </Routes>
