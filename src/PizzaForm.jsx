@@ -31,6 +31,7 @@ const PizzaForm = ({ addPizza }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addPizza(pizza);
+    window.scrollTo(0,0);
     setPizza({
       base: "largeDeepPan",
       toppings: getToppingsState()
