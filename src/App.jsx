@@ -1,11 +1,11 @@
-import RouterDemo from './RouterDemo';
+import Home from "./Home"
 import { BrowserRouter } from 'react-router-dom';
 
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Home />
+      <Home/>
     </BrowserRouter>
 
   );

@@ -1,24 +1,25 @@
 import { Routes, Route } from "react-router-dom";
+import Header from "./Header";
+import CreateButton from "./CreateButton";
+import BasketSummary from "./BasketSummary";
 
 
 const Home = () => {
 
 
   return (
-  <main>
-    <Header/>
-    <Routes>
-      <Route path="/" element={(<CreateButton />)}/>
-      <Route path="/create-pizza" element={(<PizzaForm/>)}/>
-      <Route path="/basket" element={(<BasketSummary/>)}/>
-      <Route path="previous-orders" element={(<PreviousOrders/>)}/>
-      <Route path="previous-orders:id" element={(<OrderSummary/>)}/>
-
-      <Route path="*" element={<p>Page Not Found</p>}/>
-
-    </Routes>
-  </main>
-
+    <>
+      <header>
+        <Header/>
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={(<CreateButton/>)}/>
+          <Route path="/basket" element={(<BasketSummary/>)}/>
+          <Route path="*" element={<p>Page Not Found</p>}/>
+        </Routes>
+      </main>
+    </>
   )
 }
 
