@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <>
       <header>
-        <Header/>
+        <Header pizzaArray={pizzaArray} />
       </header>
       <main>
         <Routes>
