@@ -24,3 +24,5 @@ export const bases = Object.freeze({
     label: "Medium Stuffed Crust",
   }),
 });
+
+export const baseKeys = Object.keys(bases);

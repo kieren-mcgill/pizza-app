@@ -1,3 +1,5 @@
+import { bases } from "./bases";
+
 export const toppings =  Object.freeze({
   tomato: Object.freeze({
     label: "Tomatoes"
@@ -48,3 +50,5 @@ export const toppings =  Object.freeze({
     label: "Artichoke"
   }),
 });
+
+export const toppingKeys = Object.keys(toppings);
