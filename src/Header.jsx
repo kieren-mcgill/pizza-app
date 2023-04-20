@@ -2,8 +2,7 @@ import { Button, Grid, Badge } from "@mui/material";
 import { Link } from "react-router-dom";
 import {ShoppingCart} from "@mui/icons-material";
 
-const Header = () => {
-  const ShoppingValue = 5
+const Header = ({pizzaArray}) => {
 
   return (
 
@@ -15,7 +14,7 @@ const Header = () => {
         <Link to="/basket"><Button>Basket</Button> </Link>
       </Grid>
 
-        <Badge badgeContent={ShoppingValue} color="primary"><ShoppingCart /></Badge>
+        <Badge badgeContent={pizzaArray.length} color="primary"><ShoppingCart /></Badge>
 
     </Grid>
 
