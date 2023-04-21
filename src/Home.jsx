@@ -8,10 +8,10 @@ import PizzaForm from "./PizzaForm";
 
 const Home = () => {
 
-  const [pizzaArray, newPizzaArray] = useState([])
+  const [pizzaArray, setPizzaArray] = useState([])
 
   const addPizza = (pizza) => {
-    newPizzaArray([...pizzaArray, pizza])
+    setPizzaArray([...pizzaArray, pizza])
   }
 
   return (
@@ -22,7 +22,7 @@ const Home = () => {
       <main>
         <Routes>
           <Route path="/" element={(<CreateButton/>)}/>
-          <Route path="/basket" element={(<Basket basket={pizzaArray} newPizzaArray={newPizzaArray}/>)}/>
+          <Route path="/basket" element={(<Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>)}/>
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
           <Route path="*" element={<p>Page Not Found</p>}/>
         </Routes>
