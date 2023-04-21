@@ -1,10 +1,11 @@
-import { Button, Container, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import { Button, Container, FormControl, InputLabel, MenuItem, Select, Snackbar, Typography } from "@mui/material";
 import { baseKeys, bases } from "./bases";
 import React, { useState } from "react";
 import ToppingAdder from "./ToppingAdder";
 import { toppingKeys } from "./toppings";
+import  OurSnackbar  from "./OurSnackbar";
 
-const PizzaForm = ({ addPizza }) => {
+const PizzaForm = ({  addPizza }) => {
 
   const getToppingsState = () => {
     const initialToppings = {};
@@ -36,6 +37,7 @@ const PizzaForm = ({ addPizza }) => {
       base: "largeDeepPan",
       toppings: getToppingsState()
     })
+    handleOpen();
   }
 
   const increaseNumber = (topping) => {
@@ -60,6 +62,12 @@ const PizzaForm = ({ addPizza }) => {
         }
       })
     }
+  }
+
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
   }
 
   return (
@@ -87,6 +95,7 @@ const PizzaForm = ({ addPizza }) => {
         ))}
         <Button onClick={handleSubmit}>Add Your Pizza</Button>
       </FormControl>
+      <OurSnackbar severity="success" message="Pizza Added To Basket :)" open={open} setOpen={setOpen}/>
     </Container>
   )
 }

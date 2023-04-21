@@ -14,7 +14,8 @@ const Home = () => {
     newPizzaArray([...pizzaArray, pizza])
   }
 
-  return (
+
+    return (
     <>
       <header>
         <Header pizzaArray={pizzaArray} />
