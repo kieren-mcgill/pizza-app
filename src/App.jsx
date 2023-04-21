@@ -1,12 +1,12 @@
-import CreateOrderForm from "./CreateOrderForm";
+import Home from "./Home"
+import { BrowserRouter } from 'react-router-dom';
+
 
 const App = () => {
   return (
-    <CreateOrderForm/>
-
-
-
-
+    <BrowserRouter>
+      <Home/>
+    </BrowserRouter>
   );
 };
 

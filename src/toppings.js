@@ -48,3 +48,5 @@ export const toppings =  Object.freeze({
     label: "Artichoke"
   }),
 });
+
+export const toppingKeys = Object.keys(toppings);
