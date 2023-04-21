@@ -19,3 +19,5 @@ const fakeBasket = [
     }
   },
 ]
+
+// export default fakeBasket;
