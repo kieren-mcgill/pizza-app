@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Basket from "./Basket";
 
 
-const CreateOrderForm = ({pizzaArray, setPizzaArray}) => {
+const CreateOrderForm = ({ pizzaArray, setPizzaArray, setOrderSnackbar }) => {
   const emptyOrder = {
     name: "",
     line1: "",
@@ -25,7 +25,8 @@ const CreateOrderForm = ({pizzaArray, setPizzaArray}) => {
 
 
   const [errorInput, setErrorInput] = useState(initialError)
-  const [orderInput, setOrderInput] = useState(emptyOrder);
+  const [orderInput, setOrderInput] = useState(emptyOrder)
+  const [submitOk, setSubmitOk] = useState(true)
 
   const onChange = (event) => {
     setOrderInput({
@@ -62,6 +63,8 @@ const CreateOrderForm = ({pizzaArray, setPizzaArray}) => {
       }
       postOrderApi(order)
       setOrderInput(emptyOrder)
+      setPizzaArray([])
+      setOrderSnackbar(true)
       navigate('/')
     } else {
       handleOpen();
@@ -69,6 +72,7 @@ const CreateOrderForm = ({pizzaArray, setPizzaArray}) => {
   }
 
   const onBlur = (event) => {
+    setSubmitOk(false)
     setErrorInput({
       ...errorInput,
       [event.target.name]: []
@@ -142,9 +146,9 @@ const CreateOrderForm = ({pizzaArray, setPizzaArray}) => {
               value={orderInput.postcode}/>
           </Grid>
         </Grid>
-        <Button type="submit" variant="contained">Complete Order</Button>
+        <Button disabled={submitOk} type="submit" variant="contained">Complete Order</Button>
       </form>
-      <Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>
+      <Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray} readOnly/>
       <OurSnackbar severity="warning" message="Please check for errors in your order form!" open={open} setOpen={setOpen}/>
     </div>
   )
