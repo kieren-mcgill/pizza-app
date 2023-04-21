@@ -7,14 +7,20 @@ import PizzaForm from "./PizzaForm";
 import PreviousOrders from "./PreviousOrders"
 import PizzaNotFound from "./PizzaNotFound";
 import CreateOrderForm from "./CreateOrderForm";
+import { getOrdersApi } from "./firebase-client";
 
 
 const Home = () => {
 
   const [pizzaArray, setPizzaArray] = useState([])
+  const [previousOrders, updatedPreviousOrders] = useState([])
 
   const addPizza = (pizza) => {
     setPizzaArray([...pizzaArray, pizza])
+  }
+
+  const getOrderList = () => {
+    updatedPreviousOrders([getOrdersApi()])
   }
 
   return (
@@ -29,7 +35,7 @@ const Home = () => {
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
           <Route path="*" element={<p>Page Not Found</p>}/>
           <Route path="/order-form" element={(<CreateOrderForm/>)}/>
-          <Route path="/previous-orders" element={(<PreviousOrders />)}/>
+          <Route path="/previous-orders" element={(<PreviousOrders getOrderList={getOrderList} previousOrders={previousOrders} />)}/>
           <Route path="*" element={<PizzaNotFound/>}/>
         </Routes>
       </main>

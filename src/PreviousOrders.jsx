@@ -1,7 +1,7 @@
-// import getOrdersApi from "/firebase-client.js"
-import PreOrderCard from "/PreOrderCard.jsx"
+import PreOrderCard from "./PreOrderCard.jsx"
 import { useState } from "react";
 import { Typography } from "@mui/material";
+import { getOrdersApi } from "./firebase-client";
 
 const PreviousOrders = () => {
 
@@ -9,9 +9,9 @@ const PreviousOrders = () => {
 
 
 
-  // const getOrderList = () => {
-  //   updatedPreviousOrders([getOrdersApi])
-  // }
+  const getOrderList = () => {
+    updatedPreviousOrders([getOrdersApi])
+  }
 
   return (
     <>
