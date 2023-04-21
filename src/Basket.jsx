@@ -3,6 +3,7 @@ import { Card, Container, IconButton, List, ListItem, styled, Typography } from 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import OurSnackbar from "./OurSnackbar";
 import React, { useState } from "react";
+import PreviousOrderSummary from "./PreviousOrderSummary";
 
 const StyledCard = styled(Card)({
   backgroundColor: '#dce1eb',
@@ -10,10 +11,10 @@ const StyledCard = styled(Card)({
   padding: '16px',
 });
 
-const Basket = ({ pizzaArray, setPizzaArray}) => {
+const Basket = ({ readOnly, pizzaArray, setPizzaArray}) => {
 
   const deleteFromBasket = (pizza) => {
-    const modifiedBasket = pizzaArray.filter((p) =>  p.id !== pizza.id)
+    const modifiedBasket = pizzaArray.filter((p) => p.id !== pizza.id)
     setPizzaArray(modifiedBasket)
     handleOpen()
   }
@@ -22,6 +23,7 @@ const Basket = ({ pizzaArray, setPizzaArray}) => {
   const handleOpen = () => {
     setOpen(true);
   }
+
 
   return (
     <Container>
@@ -34,11 +36,13 @@ const Basket = ({ pizzaArray, setPizzaArray}) => {
           {pizzaArray.map((pizza, i) => (
             <ListItem key={i}>
               <Typography flexGrow={1}>{bases[pizza.base].label}</Typography>
-              <IconButton onClick={() => deleteFromBasket(pizza)}>
-                <DeleteForeverIcon/>
-              </IconButton>
+              {!readOnly && (
+                <IconButton onClick={() => deleteFromBasket(pizza)}>
+                  <DeleteForeverIcon/>
+                </IconButton>
+              )}
             </ListItem>
-          ))}
+            ))}
         </List>
       </StyledCard>
       <OurSnackbar severity="warning" message="Pizza Deleted From Basket" open={open} setOpen={setOpen}/>
