@@ -1,4 +1,4 @@
-import { Grid, Link } from "@mui/material";
+import { Grid } from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 const PreOrderCard= ({order}) => {
@@ -10,7 +10,6 @@ const PreOrderCard= ({order}) => {
     <>
       <Grid>
         <Grid item onClick={()=> navigate(`/previous-order-summary/${order.id}`)} >
-          {orderDate}{order.basket.length}{order.address.postcode}
         </Grid>
       </Grid>
     </>
