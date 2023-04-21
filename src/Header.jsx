@@ -1,6 +1,6 @@
 import { Button, Grid, Badge } from "@mui/material";
 import { Link } from "react-router-dom";
-import { ShoppingCart } from "@mui/icons-material";
+import { ShoppingCart, ReceiptLong } from "@mui/icons-material";
 
 const Header = ({ pizzaArray }) => {
 
@@ -17,6 +17,9 @@ const Header = ({ pizzaArray }) => {
           <Button>Order Now!</Button>
         </Link>
       </Grid>
+      <Grid item>
+        <Link to="/previous-orders"><ReceiptLong/></Link>
+        </Grid>
       <Grid item px={2}>
         <Link to="/basket"><Badge badgeContent={pizzaArray.length} color="primary">
           <ShoppingCart/>
