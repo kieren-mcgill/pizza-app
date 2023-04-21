@@ -1,5 +1,8 @@
 import { bases } from "./bases";
-import { Card, Container, Grid, List, ListItem, styled, Typography } from "@mui/material";
+import { Card, Container, Grid, IconButton, List, ListItem, styled, Typography } from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import OurSnackbar from "./OurSnackbar";
+import React, { useState } from "react";
 import { getBasketPrice, getPizzaPrice } from "./prices";
 
 const StyledCard = styled(Card)({
@@ -8,16 +11,28 @@ const StyledCard = styled(Card)({
   padding: '16px',
 });
 
-const Basket = ({ basket }) => {
+const Basket = ({ pizzaArray, setPizzaArray}) => {
+
+  const deleteFromBasket = (pizza) => {
+    const modifiedBasket = pizzaArray.filter((p) =>  p.id !== pizza.id)
+    setPizzaArray(modifiedBasket)
+    handleOpen()
+  }
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
   return (
     <Container>
       <Typography variant="h3">Basket</Typography>
       <StyledCard>
-        {basket.length === 0 && (
+        {pizzaArray.length === 0 && (
           <Typography>You haven't added anything yet. Get ordering!</Typography>
         )}
         <List>
-          {basket.map((pizza, i) => (
+          {pizzaArray.map((pizza, i) => (
             <ListItem key={i}>
               <Grid item flexGrow={1}>
                 <Typography>{`${(bases[pizza.base].label)}`}</Typography>
@@ -25,6 +40,9 @@ const Basket = ({ basket }) => {
               <Grid item flexend={1}>
                 <Typography>{`£ ${(getPizzaPrice(pizza) / 100).toFixed(2)}`}</Typography>
               </Grid>
+              <IconButton onClick={() => deleteFromBasket(pizza)}>
+                <DeleteForeverIcon/>
+              </IconButton>
             </ListItem>
           ))}
         </List>
@@ -33,10 +51,11 @@ const Basket = ({ basket }) => {
             <Typography variant="h5">Total price:</Typography>
           </Grid>
           <Grid item>
-            <Typography>£ {(getBasketPrice(basket) / 100).toFixed(2)}</Typography>
+            <Typography>£ {(getBasketPrice(pizzaArray) / 100).toFixed(2)}</Typography>
           </Grid>
         </Grid>
       </StyledCard>
+      <OurSnackbar severity="warning" message="Pizza Deleted From Basket" open={open} setOpen={setOpen}/>
     </Container>
   );
 };

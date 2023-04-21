@@ -6,6 +6,8 @@ import { toppingKeys } from "./toppings";
 import { getPizzaPrice } from "./prices";
 
 
+import  OurSnackbar  from "./OurSnackbar";
+import { v4 as uuidv4 } from 'uuid';
 
 const PizzaForm = ({ addPizza }) => {
 
@@ -26,55 +28,57 @@ const PizzaForm = ({ addPizza }) => {
 
   const handleChange = (e) => {
     setPizza({
-      base: e.target.value,
-      toppings: pizza.toppings,
-    });
-  };
-
+      ...pizza,
+      base: e.target.value
+    })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addPizza(pizza);
+    addPizza({ ...pizza, id: uuidv4() });
     window.scrollTo(0, 0);
     setPizza({
       base: "largeDeepPan",
       toppings: getToppingsState()
     })
+    handleOpen();
   }
-
-
 
   const increaseNumber = (topping) => {
     if (pizza.toppings[topping] < 2) {
-      const updatedToppings = {
-        ...pizza.toppings,
-        [topping]: pizza.toppings[topping] + 1,
-      };
       setPizza({
         ...pizza,
-        toppings: updatedToppings,
-      });
+        toppings: {
+          ...pizza.toppings,
+          [topping]: pizza.toppings[topping] + 1
+        }
+      })
     }
   };
 
   const decreaseNumber = (topping) => {
     if (pizza.toppings[topping] > 0) {
-      const updatedToppings = {
-        ...pizza.toppings,
-        [topping]: pizza.toppings[topping] - 1,
-      };
       setPizza({
         ...pizza,
-        toppings: updatedToppings,
-      });
+        toppings: {
+          ...pizza.toppings,
+          [topping]: pizza.toppings[topping] - 1
+        }
+      })
     }
   };
 
   const totalPrice = getPizzaPrice(pizza)
 
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
   return (
     <Container>
-      <h1>Create your pizza </h1>
+      <h1>Create your pizza</h1>
       <FormControl>
         <InputLabel id="base">Select your base</InputLabel>
         <Select id="base" label="Select your base" onChange={handleChange} value={pizza.base}>
@@ -112,6 +116,7 @@ const PizzaForm = ({ addPizza }) => {
         </Grid>
         <Button onClick={handleSubmit}>Add Your Pizza</Button>
       </FormControl>
+      <OurSnackbar severity="success" message="Pizza Added To Basket :)" open={open} setOpen={setOpen}/>
     </Container>
   )
 }
