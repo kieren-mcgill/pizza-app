@@ -20,7 +20,9 @@ const Home = () => {
   }
 
   const getOrderList = () => {
-    updatedPreviousOrders([getOrdersApi()])
+    getOrdersApi()
+      .then(updatedPreviousOrders)
+    console.log(previousOrders)
   }
 
   return (
