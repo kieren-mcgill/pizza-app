@@ -14,8 +14,7 @@ const Home = () => {
     newPizzaArray([...pizzaArray, pizza])
   }
 
-
-    return (
+  return (
     <>
       <header>
         <Header pizzaArray={pizzaArray} />
@@ -23,7 +22,7 @@ const Home = () => {
       <main>
         <Routes>
           <Route path="/" element={(<CreateButton/>)}/>
-          <Route path="/basket" element={(<Basket basket={pizzaArray}/>)}/>
+          <Route path="/basket" element={(<Basket basket={pizzaArray} newPizzaArray={newPizzaArray}/>)}/>
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
           <Route path="*" element={<p>Page Not Found</p>}/>
         </Routes>
