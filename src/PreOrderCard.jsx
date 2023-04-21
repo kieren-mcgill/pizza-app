@@ -10,8 +10,10 @@ const PreOrderCard= ({order}) => {
     <>
       <Grid>
         <Grid item onClick={()=> navigate(`/previous-order-summary/${order.id}`)} >
+          <p>Click Me</p>
         </Grid>
       </Grid>
+
     </>
   )
 }
