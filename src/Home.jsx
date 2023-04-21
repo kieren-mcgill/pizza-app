@@ -4,6 +4,7 @@ import CreateButton from "./CreateButton";
 import Basket from "./Basket";
 import { useState } from "react";
 import PizzaForm from "./PizzaForm";
+import PreviousOrders from "./PreviousOrders"
 
 
 const Home = () => {
@@ -24,6 +25,7 @@ const Home = () => {
           <Route path="/" element={(<CreateButton/>)}/>
           <Route path="/basket" element={(<Basket basket={pizzaArray}/>)}/>
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
+          <Route path="/previous-orders" element={(<PreviousOrders />)}/>
           <Route path="*" element={<p>Page Not Found</p>}/>
         </Routes>
       </main>
