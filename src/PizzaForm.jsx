@@ -5,7 +5,7 @@ import ToppingAdder from "./ToppingAdder";
 import { toppingKeys } from "./toppings";
 import  OurSnackbar  from "./OurSnackbar";
 
-const PizzaForm = ({  addPizza }) => {
+const PizzaForm = ({ addPizza }) => {
 
   const getToppingsState = () => {
     const initialToppings = {};
