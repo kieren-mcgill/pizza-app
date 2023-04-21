@@ -6,14 +6,15 @@ import { useState } from "react";
 import PizzaForm from "./PizzaForm";
 import PreviousOrders from "./PreviousOrders"
 import PizzaNotFound from "./PizzaNotFound";
+import CreateOrderForm from "./CreateOrderForm";
 
 
 const Home = () => {
 
-  const [pizzaArray, newPizzaArray] = useState([])
+  const [pizzaArray, setPizzaArray] = useState([])
 
   const addPizza = (pizza) => {
-    newPizzaArray([...pizzaArray, pizza])
+    setPizzaArray([...pizzaArray, pizza])
   }
 
   return (
@@ -24,8 +25,10 @@ const Home = () => {
       <main>
         <Routes>
           <Route path="/" element={(<CreateButton/>)}/>
-          <Route path="/basket" element={(<Basket basket={pizzaArray}/>)}/>
+          <Route path="/basket" element={(<Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>)}/>
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
+          <Route path="*" element={<p>Page Not Found</p>}/>
+          <Route path="/order-form" element={(<CreateOrderForm/>)}/>
           <Route path="/previous-orders" element={(<PreviousOrders />)}/>
           <Route path="*" element={<PizzaNotFound/>}/>
         </Routes>
