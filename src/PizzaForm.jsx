@@ -6,7 +6,7 @@ import { toppingKeys } from "./toppings";
 import  OurSnackbar  from "./OurSnackbar";
 import { v4 as uuidv4 } from 'uuid';
 
-const PizzaForm = ({  addPizza }) => {
+const PizzaForm = ({ addPizza }) => {
 
   const getToppingsState = () => {
     const initialToppings = {};
