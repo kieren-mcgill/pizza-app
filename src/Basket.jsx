@@ -1,5 +1,6 @@
 import { bases } from "./bases";
-import {Card, Container, List, ListItem, styled, Typography } from "@mui/material";
+import { Card, Container, Grid, List, ListItem, styled, Typography } from "@mui/material";
+import { getBasketPrice, getPizzaPrice } from "./prices";
 
 const StyledCard = styled(Card)({
   backgroundColor: '#dce1eb',
@@ -9,7 +10,7 @@ const StyledCard = styled(Card)({
 
 const Basket = ({ basket }) => {
   return (
-    <Container >
+    <Container>
       <Typography variant="h3">Basket</Typography>
       <StyledCard>
         {basket.length === 0 && (
@@ -18,10 +19,23 @@ const Basket = ({ basket }) => {
         <List>
           {basket.map((pizza, i) => (
             <ListItem key={i}>
-              <Typography>{bases[pizza.base].label}</Typography>
+              <Grid item flexGrow={1}>
+                <Typography>{`${(bases[pizza.base].label)}`}</Typography>
+              </Grid>
+              <Grid item flexend={1}>
+                <Typography>{`£ ${(getPizzaPrice(pizza) / 100).toFixed(2)}`}</Typography>
+              </Grid>
             </ListItem>
           ))}
         </List>
+        <Grid container>
+          <Grid item flexGrow={1}>
+            <Typography variant="h5">Total price:</Typography>
+          </Grid>
+          <Grid item>
+            <Typography>£ {(getBasketPrice(basket) / 100).toFixed(2)}</Typography>
+          </Grid>
+        </Grid>
       </StyledCard>
     </Container>
   );
