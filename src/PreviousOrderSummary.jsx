@@ -9,6 +9,7 @@ const PreviousOrderSummary = ( {orders} ) => {
 
   return (
     <>
+      <p>{order.address}</p>
       <Basket readOnly pizzaArray={order.basket}/>
     </>
   )

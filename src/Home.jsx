@@ -28,7 +28,7 @@ const Home = () => {
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
           <Route path="*" element={<p>Page Not Found</p>}/>
           <Route path="/order-form" element={(<CreateOrderForm/>)}/>
-          <Route path="/previous-orders/:id"{(<PreviousOrderSummary/>)}/>
+          <Route path="/previous-order-summary/:id" element={(<PreviousOrderSummary/>)}/>
         </Routes>
       </main>
     </>
