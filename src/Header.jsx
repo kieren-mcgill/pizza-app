@@ -1,23 +1,24 @@
 import { Button, Grid, Badge } from "@mui/material";
 import { Link } from "react-router-dom";
-import {ShoppingCart} from "@mui/icons-material";
+import { ShoppingCart } from "@mui/icons-material";
 
-const Header = ({pizzaArray}) => {
+const Header = ({ pizzaArray }) => {
 
   return (
 
-    <Grid container>
-      <Grid>
-        <Link to="/" ><Button>Pizza Shop</Button> </Link>
+    <Grid container alignItems='center'>
+      <Grid item flexGrow={1}>
+        <Link to="/">
+          <Button>Pizza Shop</Button>
+        </Link>
       </Grid>
-      <Grid>
-        <Link to="/basket"><Badge badgeContent={pizzaArray.length} color="primary"><ShoppingCart></ShoppingCart> </Badge></Link>
-
+      <Grid item px={2}>
+        <Link to="/basket"><Badge badgeContent={pizzaArray.length} color="primary">
+          <ShoppingCart/>
+        </Badge>
+        </Link>
       </Grid>
-
-
     </Grid>
-
   )
 };
 

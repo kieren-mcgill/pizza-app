@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 const CreateButton = () => {
 
   return (
-    <Grid>
+    <Grid container justifyContent='center' alignItems='center' sx={{height: '500px' }}>
       <Grid item>
-        <Link to="/pizza-form"><Button>Create Pizza</Button></Link>
+        <Link to="/pizza-form"><Button variant='outlined'>Create Pizza</Button></Link>
       </Grid>
     </Grid>
   )

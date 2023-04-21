@@ -1,5 +1,3 @@
-import { bases } from "./bases";
-
 export const toppings =  Object.freeze({
   tomato: Object.freeze({
     label: "Tomatoes"
