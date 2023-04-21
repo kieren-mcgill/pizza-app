@@ -26,8 +26,7 @@ const Home = () => {
           <Route path="/basket" element={(<Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>)}/>
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
           <Route path="*" element={<p>Page Not Found</p>}/>
-          <Route path="/order-form" element={(<CreateOrderForm/>)}/>
-
+          <Route path="/order-form" element={(<CreateOrderForm pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>)}/>
         </Routes>
       </main>
     </>

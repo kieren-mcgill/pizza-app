@@ -1,10 +1,13 @@
 import { Button, Grid, TextField } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import { postOrderApi } from "./firebase-client";
 import { isEmptyInput, hasSpecialCharacters, hasNumbers, invalidPostCode, checkHasErrors } from "./orderFormValidation"
+import OurSnackbar from "./OurSnackbar";
+import { useNavigate } from "react-router-dom";
+import Basket from "./Basket";
 
 
-const CreateOrderForm = ({ basket }) => {
+const CreateOrderForm = ({pizzaArray, setPizzaArray}) => {
   const emptyOrder = {
     name: "",
     line1: "",
@@ -47,18 +50,21 @@ const CreateOrderForm = ({ basket }) => {
     })
   }
 
+  const navigate = useNavigate()
+
   const onSubmit = (event) => {
     event.preventDefault()
-    if (checkHasErrors(errorInput)) {
+    if (!checkHasErrors(errorInput)) {
       const order = {
         address: { ...orderInput },
-        basket: basket,
+        basket: pizzaArray,
         timestamp: Date.now()
       }
       postOrderApi(order)
       setOrderInput(emptyOrder)
+      navigate('/')
     } else {
-      
+      handleOpen();
     }
   }
 
@@ -68,6 +74,11 @@ const CreateOrderForm = ({ basket }) => {
       [event.target.name]: []
     })
     validCheck(orderInput[event.target.name], event)
+  }
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
   }
 
   return (
@@ -133,7 +144,8 @@ const CreateOrderForm = ({ basket }) => {
         </Grid>
         <Button type="submit" variant="contained">Complete Order</Button>
       </form>
-      <p>Basket</p>
+      <Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>
+      <OurSnackbar severity="warning" message="Please check for errors in your order form!" open={open} setOpen={setOpen}/>
     </div>
   )
 }
