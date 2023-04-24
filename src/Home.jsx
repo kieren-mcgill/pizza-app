@@ -35,6 +35,7 @@ const Home = () => {
           <Route path="/basket" element={(<Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>)}/>
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
           <Route path="/order-form" element={(<CreateOrderForm pizzaArray={pizzaArray} setPizzaArray={setPizzaArray} setOrderSnackbar={setOrderSnackbar}/>)}/>
+          <Route path="*" element={<p>Page Not Found</p>}/>
         </Routes>
         <OurSnackbar severity="success" message="We received your order!" open={orderSnackbar} setOpen={setOrderSnackbar}/>
       </main>
