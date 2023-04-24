@@ -34,7 +34,7 @@ const Home = () => {
           <Route path="/" element={(<CreateButton/>)}/>
           <Route path="/basket" element={(<Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>)}/>
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
-          <Route path="*" element={<p>Page Not Found</p>}/>
+          <Route path="*" element={<PizzaNotFound/>}/>
           <Route path="/order-form" element={(<CreateOrderForm/>)}/>
           <Route path="/previous-orders" element={(<PreviousOrders getOrderList={getOrderList} previousOrders={previousOrders} />)}/>
           <Route path="*" element={<PizzaNotFound/>}/>
