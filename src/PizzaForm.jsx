@@ -1,8 +1,11 @@
-import { Button, Container, FormControl, InputLabel, MenuItem, Select, Snackbar, Typography } from "@mui/material";
+import { Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import { baseKeys, bases } from "./bases";
 import React, { useState } from "react";
 import ToppingAdder from "./ToppingAdder";
 import { toppingKeys } from "./toppings";
+import { getPizzaPrice } from "./prices";
+
+
 import  OurSnackbar  from "./OurSnackbar";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -51,7 +54,7 @@ const PizzaForm = ({ addPizza }) => {
         }
       })
     }
-  }
+  };
 
   const decreaseNumber = (topping) => {
     if (pizza.toppings[topping] > 0) {
@@ -63,7 +66,9 @@ const PizzaForm = ({ addPizza }) => {
         }
       })
     }
-  }
+  };
+
+  const totalPrice = getPizzaPrice(pizza)
 
 
   const [open, setOpen] = useState(false);
@@ -78,9 +83,15 @@ const PizzaForm = ({ addPizza }) => {
         <InputLabel id="base">Select your base</InputLabel>
         <Select id="base" label="Select your base" onChange={handleChange} value={pizza.base}>
           {baseKeys.map((base, i) => (
-            <MenuItem
-              key={i}
-              value={base}>{bases[base].label}
+            <MenuItem key={i} value={base}>
+                <Grid container>
+                  <Grid item flexGrow={1}>
+                    {bases[base].label}
+                  </Grid>
+                  <Grid item flexend={1}>
+                    £ {(bases[base].price/100).toFixed(2)}
+                  </Grid>
+                </Grid>
             </MenuItem>
           ))}
         </Select>
@@ -88,12 +99,21 @@ const PizzaForm = ({ addPizza }) => {
           each topping.</Typography>
         {toppingKeys.map((topping, i) => (
           <ToppingAdder
-            key={i} topping={topping}
+            key={i}
+            topping={topping}
             increaseNumber={increaseNumber}
             decreaseNumber={decreaseNumber}
             amount={pizza.toppings[topping]}
           />
         ))}
+        <Grid container>
+          <Grid item flexGrow={1}>
+            <Typography variant="h5">Total price:</Typography>
+          </Grid>
+          <Grid item>
+        <Typography variant="h5">£ {((totalPrice)/100).toFixed(2)} </Typography>
+          </Grid>
+        </Grid>
         <Button onClick={handleSubmit}>Add Your Pizza</Button>
       </FormControl>
       <OurSnackbar severity="success" message="Pizza Added To Basket &#128513;" open={open} setOpen={setOpen}/>
