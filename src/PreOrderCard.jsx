@@ -15,7 +15,7 @@ const PreOrderCard= ({order}) => {
     <>
       <Grid>
         <Grid item onClick={()=> navigate(`/previous-order-summary/${order.id}`)}>
-          <Typography>{orderDate} - {orderBasket} - {getBasketPrice(order.basket)}</Typography>
+          <Typography>{orderDate} - {orderBasket} - £{((getBasketPrice(order.basket))/100).toFixed(2)} </Typography>
         </Grid>
       </Grid>
     </>
