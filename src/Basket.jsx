@@ -28,7 +28,7 @@ const Basket = ({ readOnly, pizzaArray, setPizzaArray}) => {
 
   return (
     <Container>
-      <Typography variant="h3">Basket</Typography>
+      <Typography variant="h4">Basket</Typography>
       <StyledCard>
         {pizzaArray.length === 0 && (
           <Typography>You haven't added anything yet. Get ordering!</Typography>
