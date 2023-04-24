@@ -9,7 +9,7 @@ import { getPizzaPrice } from "./prices";
 import  OurSnackbar  from "./OurSnackbar";
 import { v4 as uuidv4 } from 'uuid';
 
-const PizzaForm = ({ addPizza }) => {
+const PizzaForm = ({ oldPizza, addPizza }) => {
 
   const getToppingsState = () => {
     const initialToppings = {};
@@ -19,12 +19,25 @@ const PizzaForm = ({ addPizza }) => {
     return initialToppings;
   }
 
+
+  let readOnly = false;
+
+  if(oldPizza) {
+    readOnly = true;
+  }
+
+
   const [pizza, setPizza] = useState(
+    oldPizza ? oldPizza :
     {
       base: "largeDeepPan",
       toppings: getToppingsState(),
     }
   )
+
+
+
+
 
   const handleChange = (e) => {
     setPizza({
@@ -78,10 +91,10 @@ const PizzaForm = ({ addPizza }) => {
 
   return (
     <Container>
-      <h1>Create your pizza</h1>
+      <h1>{readOnly ? "Your old pizza" : "Create your pizza"}</h1>
       <FormControl>
         <InputLabel id="base">Select your base</InputLabel>
-        <Select id="base" label="Select your base" onChange={handleChange} value={pizza.base}>
+        <Select disabled={readOnly} id="base" label="Select your base" onChange={handleChange} value={pizza.base}>
           {baseKeys.map((base, i) => (
             <MenuItem key={i} value={base}>
                 <Grid container>
@@ -95,10 +108,11 @@ const PizzaForm = ({ addPizza }) => {
             </MenuItem>
           ))}
         </Select>
-        <Typography pt={2}>You can have as many toppings as you think will fit on your pizza! You can add up to two of
-          each topping.</Typography>
+        {!readOnly && (<Typography pt={2}>You can have as many toppings as you think will fit on your pizza! You can add up to two of
+          each topping.</Typography>)}
         {toppingKeys.map((topping, i) => (
           <ToppingAdder
+            readOnly={readOnly}
             key={i}
             topping={topping}
             increaseNumber={increaseNumber}
@@ -114,7 +128,8 @@ const PizzaForm = ({ addPizza }) => {
         <Typography variant="h5">£ {((totalPrice)/100).toFixed(2)} </Typography>
           </Grid>
         </Grid>
-        <Button onClick={handleSubmit}>Add Your Pizza</Button>
+        {!readOnly && (
+        <Button onClick={handleSubmit}>Add Your Pizza</Button>)}
       </FormControl>
       <OurSnackbar severity="success" message="Pizza Added To Basket &#128513;" open={open} setOpen={setOpen}/>
     </Container>

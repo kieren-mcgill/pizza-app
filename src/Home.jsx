@@ -9,6 +9,7 @@ import PizzaNotFound from "./PizzaNotFound";
 import CreateOrderForm from "./CreateOrderForm";
 import PreviousOrderSummary from "./PreviousOrderSummary";
 import { getOrdersApi } from "./firebase-client";
+import PreviousPizzaSummary from "./PreviousPizzaSummary";
 
 
 const Home = () => {
@@ -38,7 +39,10 @@ const Home = () => {
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
           <Route path="*" element={<p>Page Not Found</p>}/>
           <Route path="/order-form" element={(<CreateOrderForm/>)}/>
-          <Route path="/previous-order-summary/:id" element={(<PreviousOrderSummary/>)}/>
+          <Route path="/previous-order-summary/:orderid">
+            <Route index element={(<PreviousOrderSummary/>)}/>
+            <Route path=":pizzaid" element={<PreviousPizzaSummary/>}/>
+          </Route>
           <Route path="/previous-orders" element={(<PreviousOrders getOrderList={getOrderList} previousOrders={previousOrders} />)}/>
           <Route path="*" element={<PizzaNotFound/>}/>
         </Routes>
