@@ -10,6 +10,9 @@ const ToppingAdder = ({ topping, amount, increaseNumber, decreaseNumber }) => {
       <Grid item flexGrow={1}>
         {toppings[topping].label}
       </Grid>
+      <Grid item flexend={1}>
+        £ {(toppings[topping].price/100).toFixed(2)}
+      </Grid>
       <Grid item>
         <IconButton onClick={() => decreaseNumber(topping)} disabled={amount > 0 ? false : true}>
           <RemoveCircleOutlineIcon/>
