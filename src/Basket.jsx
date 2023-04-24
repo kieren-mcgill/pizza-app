@@ -5,16 +5,17 @@ import OurSnackbar from "./OurSnackbar";
 import React, { useState } from "react";
 import { getBasketPrice, getPizzaPrice } from "./prices";
 
+
 const StyledCard = styled(Card)({
   backgroundColor: '#dce1eb',
   boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.1)',
   padding: '16px',
 });
 
-const Basket = ({ pizzaArray, setPizzaArray}) => {
+const Basket = ({ readOnly, pizzaArray, setPizzaArray}) => {
 
   const deleteFromBasket = (pizza) => {
-    const modifiedBasket = pizzaArray.filter((p) =>  p.id !== pizza.id)
+    const modifiedBasket = pizzaArray.filter((p) => p.id !== pizza.id)
     setPizzaArray(modifiedBasket)
     handleOpen()
   }
@@ -24,9 +25,10 @@ const Basket = ({ pizzaArray, setPizzaArray}) => {
     setOpen(true);
   }
 
+
   return (
     <Container>
-      <Typography variant="h3">Basket</Typography>
+      <Typography variant="h4">Basket</Typography>
       <StyledCard>
         {pizzaArray.length === 0 && (
           <Typography>You haven't added anything yet. Get ordering!</Typography>
@@ -40,11 +42,12 @@ const Basket = ({ pizzaArray, setPizzaArray}) => {
               <Grid item flexend={1}>
                 <Typography>{`£ ${(getPizzaPrice(pizza) / 100).toFixed(2)}`}</Typography>
               </Grid>
-              <IconButton onClick={() => deleteFromBasket(pizza)}>
-                <DeleteForeverIcon/>
-              </IconButton>
+              {!readOnly && (
+                <IconButton onClick={() => deleteFromBasket(pizza)}>
+                  <DeleteForeverIcon/>
+                </IconButton>)}
             </ListItem>
-          ))}
+            ))}
         </List>
         <Grid container>
           <Grid item flexGrow={1}>

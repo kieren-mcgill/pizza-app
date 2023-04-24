@@ -116,7 +116,7 @@ const PizzaForm = ({ addPizza }) => {
         </Grid>
         <Button onClick={handleSubmit}>Add Your Pizza</Button>
       </FormControl>
-      <OurSnackbar severity="success" message="Pizza Added To Basket :)" open={open} setOpen={setOpen}/>
+      <OurSnackbar severity="success" message="Pizza Added To Basket &#128513;" open={open} setOpen={setOpen}/>
     </Container>
   )
 }
