@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseUrl = 'https://pizzaordering-b87fd-default-rtdb.europe-west1.firebasedatabase.app/';
+const baseUrl = 'https://pizzaordering-b87fd-default-rtdb.europe-west1.firebasedatabase.app/';
 
 const transformFirebaseData = (data) => data
   ? Object.keys(data).map((key) => ({ ...data[key], id: key }))

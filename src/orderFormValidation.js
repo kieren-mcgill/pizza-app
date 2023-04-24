@@ -25,14 +25,17 @@ export const hasNumbers = (fieldInput) => {
 }
 
 export const invalidPostCode = (fieldInput) => {
-  if (/^[a-z]{1,2}\d[a-z\d]?\s*\d[a-z]{2}$/i.test(fieldInput)) {
-    return ''
-  } else {
+  if (!(/^[a-z]{1,2}\d[a-z\d]?\s*\d[a-z]{2}$/i.test(fieldInput))) {
     return 'must be a valid UK postcode'
+  } else {
+    return ''
   }
 }
 
-export const checkHasErrors = (errorObject) => Object.keys(errorObject).some((key) => errorObject[key].length > 0)
+export const checkHasErrors = (errorInputObject) => {
+  return Object.keys(errorInputObject).some((key) => errorInputObject[key].length > 0)
+}
+
 
 
 

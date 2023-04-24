@@ -1,10 +1,18 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Button, Container, Grid, TextField } from "@mui/material";
 import { postOrderApi } from "./firebase-client";
-import { isEmptyInput, hasSpecialCharacters, hasNumbers, invalidPostCode, checkHasErrors } from "./orderFormValidation"
+import {
+  isEmptyInput,
+  hasSpecialCharacters,
+  hasNumbers,
+  invalidPostCode,
+  checkHasErrors,
+} from "./orderFormValidation"
+import OurSnackbar from "./OurSnackbar";
+import Basket from "./Basket";
 
-
-const CreateOrderForm = ({ basket }) => {
+const CreateOrderForm = ({ pizzaArray, setPizzaArray, setOrderSnackbar }) => {
   const emptyOrder = {
     name: "",
     line1: "",
@@ -20,9 +28,8 @@ const CreateOrderForm = ({ basket }) => {
     postcode: [],
   }
 
-
   const [errorInput, setErrorInput] = useState(initialError)
-  const [orderInput, setOrderInput] = useState(emptyOrder);
+  const [orderInput, setOrderInput] = useState(emptyOrder)
 
   const onChange = (event) => {
     setOrderInput({
@@ -31,74 +38,88 @@ const CreateOrderForm = ({ basket }) => {
     })
   }
 
-  const validCheck = (fieldInput, event) => {
+  const validCheck = (fieldInput, key) => {
     const errorMessages = []
     errorMessages.push(isEmptyInput(fieldInput))
     errorMessages.push(hasSpecialCharacters(fieldInput))
-    if (event.target.name === 'name' || event.target.name === 'road' || event.target.name === 'town') {
+    if (key === 'name' || key === 'road' || key === 'town') {
       errorMessages.push(hasNumbers(fieldInput))
     }
-    if (event.target.name === 'postcode') {
+    if (key === 'postcode') {
       errorMessages.push(invalidPostCode(fieldInput))
     }
-    setErrorInput({
-      ...errorInput,
-      [event.target.name]: errorMessages.filter(el => el !== '')
-    })
+    return errorMessages.filter(el => el !== '')
   }
 
-  const onSubmit = (event) => {
-    event.preventDefault()
-    if (checkHasErrors(errorInput)) {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    const newErrors = {}
+
+    Object.keys(orderInput).forEach((key) => newErrors[key] = validCheck(orderInput[key], key))
+    setErrorInput(newErrors)
+
+    if (!checkHasErrors(newErrors)) {
       const order = {
         address: { ...orderInput },
-        basket: basket,
+        basket: pizzaArray,
         timestamp: Date.now()
       }
       postOrderApi(order)
       setOrderInput(emptyOrder)
+      setPizzaArray([])
+      setOrderSnackbar(true)
+      navigate('/')
     } else {
-      
+      handleOpen();
     }
   }
 
   const onBlur = (event) => {
     setErrorInput({
       ...errorInput,
-      [event.target.name]: []
+      [event.target.name]: validCheck(orderInput[event.target.name], event.target.name)
     })
-    validCheck(orderInput[event.target.name], event)
+  }
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
   }
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
+    <>
+      <Container>
         <Grid container direction="column" spacing={2}>
           <Grid item>
-            <TextField error={errorInput.name.length > 0}
-                       helperText={errorInput.name.join(', ')}
-                       onBlur={onBlur}
-                       onChange={onChange}
-                       name="name"
-                       label="Name"
-                       variant="outlined"
-                       value={orderInput.name}
+            <TextField
+              error={errorInput.name.length > 0}
+              fullWidth
+              helperText={errorInput.name.join(', ')}
+              onBlur={onBlur}
+              onChange={onChange}
+              name="name"
+              label="Name"
+              variant="outlined"
+              value={orderInput.name}
             />
           </Grid>
           <Grid item>
             <TextField
+              fullWidth
               error={errorInput.line1.length > 0}
               helperText={errorInput.line1.join(', ')}
               onBlur={onBlur}
               onChange={onChange}
               name="line1"
-              label="House Name/ Number"
+              label="House name or number"
               variant="outlined"
               value={orderInput.line1}
             />
           </Grid>
           <Grid item>
             <TextField
+              fullWidth
               error={errorInput.road.length > 0}
               onBlur={onBlur}
               helperText={errorInput.road.join(', ')}
@@ -110,33 +131,44 @@ const CreateOrderForm = ({ basket }) => {
           </Grid>
           <Grid item>
             <TextField
+              fullWidth
               error={errorInput.town.length > 0}
               onBlur={onBlur}
               helperText={errorInput.town.join(', ')}
               onChange={onChange}
               name="town"
-              label="City/Town"
+              label="City/town"
               variant="outlined"
               value={orderInput.town}/>
           </Grid>
           <Grid item>
             <TextField
+              fullWidth
               error={errorInput.postcode.length > 0}
               onBlur={onBlur}
               helperText={errorInput.postcode.join(', ')}
               onChange={onChange}
               name="postcode"
-              label="Post Code"
+              label="Postcode"
               variant="outlined"
               value={orderInput.postcode}/>
           </Grid>
         </Grid>
-        <Button type="submit" variant="contained">Complete Order</Button>
-      </form>
-      <p>Basket</p>
-    </div>
+        <Button
+          onClick={handleClick}
+          variant="contained">
+          Complete Order
+        </Button>
+      </Container>
+      <Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray} readOnly/>
+      <OurSnackbar
+        severity="warning"
+        message="Please check for errors in your order form!"
+        open={open}
+        setOpen={setOpen}
+      />
+    </>
   )
 }
-
 
 export default CreateOrderForm;
