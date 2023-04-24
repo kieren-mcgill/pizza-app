@@ -6,7 +6,7 @@ const Header = ({ pizzaArray }) => {
 
   return (
 
-    <Grid container alignItems='center'>
+    <Grid container enableStickyHeader={true} alignItems='center'>
       <Grid item flexGrow={1}>
         <Link to="/">
           <Button>Pizza Shop</Button>
