@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Button, Container, Grid, TextField } from "@mui/material";
+import { Box, Button, Container, Grid, TextField } from "@mui/material";
 import { postOrderApi } from "./firebase-client";
 import {
   isEmptyInput,
@@ -13,6 +13,12 @@ import OurSnackbar from "./OurSnackbar";
 import Basket from "./Basket";
 
 const CreateOrderForm = ({ pizzaArray, setPizzaArray, setOrderSnackbar }) => {
+  const navigate = useNavigate()
+
+  if (pizzaArray.length === 0) {
+    navigate('/');
+  }
+
   const emptyOrder = {
     name: "",
     line1: "",
@@ -51,7 +57,6 @@ const CreateOrderForm = ({ pizzaArray, setPizzaArray, setOrderSnackbar }) => {
     return errorMessages.filter(el => el !== '')
   }
 
-  const navigate = useNavigate()
 
   const handleClick = () => {
     const newErrors = {}
@@ -154,13 +159,16 @@ const CreateOrderForm = ({ pizzaArray, setPizzaArray, setOrderSnackbar }) => {
               value={orderInput.postcode}/>
           </Grid>
         </Grid>
+        <Box textAlign='center' sx={{ m: 2 }}>
         <Button
           onClick={handleClick}
-          variant="contained">
+          variant="contained"
+          color="warning">
           Complete Order
         </Button>
+        </Box>
       </Container>
-      <Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray} readOnly/>
+      <Basket orderForm pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>
       <OurSnackbar
         severity="warning"
         message="Please check for errors in your order form!"
