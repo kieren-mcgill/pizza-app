@@ -9,7 +9,7 @@ const Header = ({ pizzaArray }) => {
     <Grid container alignItems='center'>
       <Grid item flexGrow={1}>
         <Link to="/">
-          <Button>Pizza Shop</Button>
+          <Button >Pizza Shop</Button>
         </Link>
       </Grid>
       <Grid item px={2}>

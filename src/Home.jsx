@@ -24,7 +24,7 @@ const Home = () => {
           <Route path="/" element={(<CreateButton/>)}/>
           <Route path="/basket" element={(<Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>)}/>
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
-          <Route path="*" element={<p>Page Not Found</p>}/>
+          <Route path="*" element={<p class='customFont1'>Page Not Found</p>}/>
         </Routes>
       </main>
     </>
