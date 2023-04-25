@@ -13,7 +13,7 @@ const StyledCard = styled(Card)({
   padding: '16px',
 });
 
-const Basket = ({ order, readOnly, pizzaArray, setPizzaArray }) => {
+const Basket = ({ order, readOnly, orderForm, pizzaArray, setPizzaArray }) => {
 
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -65,7 +65,7 @@ const Basket = ({ order, readOnly, pizzaArray, setPizzaArray }) => {
         </Grid>
       </StyledCard>
 
-      {(!readOnly && pizzaArray.length > 0) && (
+      {(!orderForm && (!readOnly && pizzaArray.length > 0)) && (
         <Box textAlign='center' sx={{ m: 2 }}>
           <Button onClick={() => navigate('/order-form')} size="large" variant="contained">Order Now!</Button>
         </Box>)}
