@@ -12,11 +12,11 @@ const Header = ({ pizzaArray }) => {
           <Button>Pizza Shop</Button>
         </Link>
       </Grid>
-      <Grid item flexGrow={1}>
-        <Link to="/order-form">
-          <Button>Order Now!</Button>
-        </Link>
-      </Grid>
+      {/*<Grid item flexGrow={1}>*/}
+      {/*  <Link to="/order-form">*/}
+      {/*    <Button>Order Now!</Button>*/}
+      {/*  </Link>*/}
+      {/*</Grid>*/}
       <Grid item px={2}>
         <Link to="/basket"><Badge badgeContent={pizzaArray.length} color="primary">
           <ShoppingCart/>
