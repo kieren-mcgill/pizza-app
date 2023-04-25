@@ -91,7 +91,7 @@ const PizzaForm = ({ addPizza }) => {
   return (
     <div className={backgroundClass}>
     <Container >
-      <h1>Create your pizza</h1>
+      <h1 style={{margin:"0 0 15px 0"}}>Create your pizza</h1>
       <FormControl>
         <InputLabel style={{color: "white"}} id="base">Select your base</InputLabel>
         <Select style={{color: "white"}} id="base" label="Select your base" onChange={handleChange} value={pizza.base}>

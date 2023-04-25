@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import PizzaForm from "./PizzaForm";
 import CreateOrderForm from "./CreateOrderForm";
 import OurSnackbar from "./OurSnackbar";
+import mainfon from "./img/mainfon.jpg"
 
 const Home = () => {
 
@@ -25,14 +26,14 @@ const Home = () => {
 
   return (
     <>
-      <header>
+      <header style={{ backgroundColor: "#FFA700", padding: "1rem" }}>
         <Header pizzaArray={pizzaArray} />
       </header>
-      <main >
+      <main style={{ backgroundImage:`url(${mainfon})`, backgroundSize: "cover", backgroundPosition: "center", minHeight: "100vh" }} >
         <Routes>
           <Route path="/" element={(<CreateButton/>)}/>
           <Route path="/basket" element={(<Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>)}/>
-          <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
+          <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza} />)}/>
           <Route path="/order-form" element={(<CreateOrderForm pizzaArray={pizzaArray} setPizzaArray={setPizzaArray} setOrderSnackbar={setOrderSnackbar}/>)}/>
           <Route path="*" element={<p>Page Not Found</p>}/>
         </Routes>
