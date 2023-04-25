@@ -1,9 +1,11 @@
 import { bases } from "./bases";
-import { Card, Container, Grid, IconButton, List, ListItem, styled, Typography } from "@mui/material";
+import { Box, Button, Card, Container, Grid, IconButton, List, ListItem, styled, Typography } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import OurSnackbar from "./OurSnackbar";
 import React, { useState } from "react";
 import { getBasketPrice, getPizzaPrice } from "./prices";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const StyledCard = styled(Card)({
   backgroundColor: '#dce1eb',
@@ -12,7 +14,7 @@ const StyledCard = styled(Card)({
 });
 
 const Basket = ({ pizzaArray, setPizzaArray}) => {
-
+  const navigate= useNavigate();
   const deleteFromBasket = (pizza) => {
     const modifiedBasket = pizzaArray.filter((p) =>  p.id !== pizza.id)
     setPizzaArray(modifiedBasket)
@@ -55,6 +57,11 @@ const Basket = ({ pizzaArray, setPizzaArray}) => {
           </Grid>
         </Grid>
       </StyledCard>
+
+      {pizzaArray.length > 0 && (
+      <Box textAlign='center' sx={{ m: 2}}>
+          <Button onClick = {() => navigate('/order-form')} size="large" variant="contained">Order Now!</Button>
+      </Box> )}
       <OurSnackbar severity="warning" message="Pizza Deleted From Basket" open={open} setOpen={setOpen}/>
     </Container>
   );
