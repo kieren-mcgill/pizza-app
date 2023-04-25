@@ -12,18 +12,14 @@ const Header = ({ pizzaArray }) => {
           <Button>Pizza Shop</Button>
         </Link>
       </Grid>
-      <Grid item flexGrow={1}>
-        <Link to="/order-form">
-          <Button>Order Now!</Button>
-        </Link>
-      </Grid>
       <Grid item>
         <Link to="/previous-orders"><ReceiptLong/></Link>
-        </Grid>
+      </Grid>
       <Grid item px={2}>
-        <Link to="/basket"><Badge badgeContent={pizzaArray.length} color="primary">
-          <ShoppingCart/>
-        </Badge>
+        <Link to="/basket">
+          <Badge badgeContent={pizzaArray.length} color="primary">
+            <ShoppingCart/>
+          </Badge>
         </Link>
       </Grid>
     </Grid>

@@ -1,6 +1,6 @@
 import PreOrderCard from "./PreOrderCard.jsx"
 import { useEffect, useState, } from "react";
-import { Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 
 import { sortBy } from 'lodash';
 import { getOrdersApi } from "./firebase-client";
@@ -17,17 +17,18 @@ const PreviousOrders = () => {
   const sortedPreviousOrders = sortBy(previousOrders, ['timestamp']).reverse();
 
   return (
-    <>
+    <Container>
       <Typography>
         Previous Orders
       </Typography>
-      {sortedPreviousOrders.map((order) => (
-        <PreOrderCard
-          key={order.id}
-          order={order}/>
-      ))}
-
-    </>
+      <Grid direction="column" container>
+        {sortedPreviousOrders.map((order) => (
+          <PreOrderCard
+            key={order.id}
+            order={order}/>
+        ))}
+      </Grid>
+    </Container>
   )
 };
 

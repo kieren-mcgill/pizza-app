@@ -1,5 +1,5 @@
 import { bases } from "./bases";
-import { Card, Container, Grid, IconButton, List, ListItem, styled, Typography } from "@mui/material";
+import { Box, Button, Card, Container, Grid, IconButton, List, ListItem, styled, Typography } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import OurSnackbar from "./OurSnackbar";
 import React, { useState } from "react";
@@ -13,7 +13,10 @@ const StyledCard = styled(Card)({
   padding: '16px',
 });
 
-const Basket = ({ order, readOnly, pizzaArray, setPizzaArray}) => {
+const Basket = ({ order, readOnly, pizzaArray, setPizzaArray }) => {
+
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const deleteFromBasket = (pizza) => {
     const modifiedBasket = pizzaArray.filter((p) => p.id !== pizza.id)
@@ -21,15 +24,13 @@ const Basket = ({ order, readOnly, pizzaArray, setPizzaArray}) => {
     handleOpen()
   }
 
-  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   }
-  const navigate = useNavigate()
+
   const goToPizza = (pizza) => {
     navigate(`/previous-order-summary/${order.id}/${pizza.id}`)
-}
-
+  }
 
   return (
     <Container>
@@ -40,7 +41,7 @@ const Basket = ({ order, readOnly, pizzaArray, setPizzaArray}) => {
         )}
         <List>
           {pizzaArray.map((pizza, i) => (
-            <ListItem onClick={readOnly ? () => goToPizza(pizza) : undefined} key={i}>
+            <ListItem button={readOnly} onClick={readOnly ? () => goToPizza(pizza) : undefined} key={i}>
               <Grid item flexGrow={1}>
                 <Typography>{`${(bases[pizza.base].label)}`}</Typography>
               </Grid>
@@ -52,7 +53,7 @@ const Basket = ({ order, readOnly, pizzaArray, setPizzaArray}) => {
                   <DeleteForeverIcon/>
                 </IconButton>)}
             </ListItem>
-            ))}
+          ))}
         </List>
         <Grid container>
           <Grid item flexGrow={1}>
@@ -63,6 +64,11 @@ const Basket = ({ order, readOnly, pizzaArray, setPizzaArray}) => {
           </Grid>
         </Grid>
       </StyledCard>
+
+      {(!readOnly && pizzaArray.length > 0) && (
+        <Box textAlign='center' sx={{ m: 2 }}>
+          <Button onClick={() => navigate('/order-form')} size="large" variant="contained">Order Now!</Button>
+        </Box>)}
       <OurSnackbar severity="warning" message="Pizza Deleted From Basket" open={open} setOpen={setOpen}/>
     </Container>
   );
