@@ -40,7 +40,7 @@ const Basket = ({ order, readOnly, pizzaArray, setPizzaArray}) => {
         )}
         <List>
           {pizzaArray.map((pizza, i) => (
-            <ListItem onClick={readOnly ? () => goToPizza(pizza) : ""} key={i}>
+            <ListItem onClick={readOnly ? () => goToPizza(pizza) : false} key={i}>
               <Grid item flexGrow={1}>
                 <Typography>{`${(bases[pizza.base].label)}`}</Typography>
               </Grid>

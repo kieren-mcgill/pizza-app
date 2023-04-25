@@ -1,6 +1,6 @@
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Grid, IconButton } from "@mui/material";
+import { Grid, IconButton, Typography } from "@mui/material";
 import { toppings } from "./toppings";
 
 const ToppingAdder = ({ readOnly, topping, amount, increaseNumber, decreaseNumber }) => {
@@ -9,10 +9,10 @@ const ToppingAdder = ({ readOnly, topping, amount, increaseNumber, decreaseNumbe
     return (
       <Grid direction='row' container pt={2} spacing={{ xs: 2, md: 3 }} alignItems="center">
         <Grid item flexGrow={1}>
-          {toppings[topping].label}
+          <Typography>{toppings[topping].label}</Typography>
         </Grid>
         <Grid item flexend={1}>
-          £ {(toppings[topping].price / 100).toFixed(2)}
+          <Typography>£ {(toppings[topping].price / 100).toFixed(2)}</Typography>
         </Grid>
         {!readOnly && (<Grid item>
           <IconButton onClick={() => decreaseNumber(topping)} disabled={amount > 0 ? false : true}>
@@ -20,7 +20,7 @@ const ToppingAdder = ({ readOnly, topping, amount, increaseNumber, decreaseNumbe
           </IconButton>
         </Grid>)}
         <Grid item>
-          {amount}
+          <Typography>{amount}</Typography>
         </Grid>
         {!readOnly && (<Grid item>
           <IconButton onClick={() => increaseNumber(topping)} disabled={amount < 2 ? false : true}>

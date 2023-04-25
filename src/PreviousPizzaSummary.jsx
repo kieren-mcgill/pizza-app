@@ -6,7 +6,7 @@ import { baseUrl } from "./firebase-client";
 
 const PreviousPizzaSummary = () => {
   const { pizzaid, orderid } = useParams();
-  const [oldPizza, setOldPizza] = useState(undefined);
+  const [previousPizza, setPreviousPizza] = useState(undefined);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const PreviousPizzaSummary = () => {
       url: `${baseUrl}/orders/${orderid}/basket.json`,
     }).then(({ data }) => {
       if (data) {
-        setOldPizza(data.find((p) => p.id = pizzaid));
+        setPreviousPizza(data.find((p) => p.id = pizzaid));
       } else {
         setHasError(true);
       }
@@ -28,14 +28,14 @@ const PreviousPizzaSummary = () => {
     )
   }
 
-  if (!oldPizza) {
+  if (!previousPizza) {
     return (
       <p>Fetching Old Pizza</p>
     )
   }
 
   return (
-    <PizzaForm oldPizza={oldPizza}/>
+    <PizzaForm previousPizza={previousPizza}/>
   )
 }
 
