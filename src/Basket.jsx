@@ -4,6 +4,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import OurSnackbar from "./OurSnackbar";
 import React, { useState } from "react";
 import { getBasketPrice, getPizzaPrice } from "./prices";
+import { useNavigate } from "react-router-dom";
 
 
 const StyledCard = styled(Card)({
@@ -12,7 +13,7 @@ const StyledCard = styled(Card)({
   padding: '16px',
 });
 
-const Basket = ({ readOnly, pizzaArray, setPizzaArray}) => {
+const Basket = ({ order, readOnly, pizzaArray, setPizzaArray}) => {
 
   const deleteFromBasket = (pizza) => {
     const modifiedBasket = pizzaArray.filter((p) => p.id !== pizza.id)
@@ -24,6 +25,10 @@ const Basket = ({ readOnly, pizzaArray, setPizzaArray}) => {
   const handleOpen = () => {
     setOpen(true);
   }
+  const navigate = useNavigate()
+  const goToPizza = (pizza) => {
+    navigate(`/previous-order-summary/${order.id}/${pizza.id}`)
+}
 
 
   return (
@@ -35,7 +40,7 @@ const Basket = ({ readOnly, pizzaArray, setPizzaArray}) => {
         )}
         <List>
           {pizzaArray.map((pizza, i) => (
-            <ListItem key={i}>
+            <ListItem onClick={readOnly ? () => goToPizza(pizza) : undefined} key={i}>
               <Grid item flexGrow={1}>
                 <Typography>{`${(bases[pizza.base].label)}`}</Typography>
               </Grid>

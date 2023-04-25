@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import PizzaForm from "./PizzaForm";
 import PreviousOrders from "./PreviousOrders"
 import PizzaNotFound from "./PizzaNotFound";
+import PreviousPizzaSummary from "./PreviousPizzaSummary";
 import PreviousOrderSummary from "./PreviousOrderSummary";
 import OurSnackbar from "./OurSnackbar";
 import CreateOrderForm from "./CreateOrderForm";
@@ -39,9 +40,11 @@ const Home = () => {
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
           <Route path="/order-form" element={(<CreateOrderForm pizzaArray={pizzaArray} setPizzaArray={setPizzaArray} setOrderSnackbar={setOrderSnackbar}/>)}/>
           <Route path="*" element={<PizzaNotFound/>}/>
-          <Route path="/order-form" element={(<CreateOrderForm/>)}/>
           <Route path="/previous-orders" element={(<PreviousOrders/>)}/>
-          <Route path="/previous-order-summary/:id" element={(<PreviousOrderSummary/>)}/>
+          <Route path="/previous-order-summary/:orderid">
+            <Route index element={(<PreviousOrderSummary/>)}/>
+            <Route path=":pizzaid" element={<PreviousPizzaSummary/>}/>
+          </Route>
         </Routes>
         <OurSnackbar severity="success" message="We received your order!" open={orderSnackbar} setOpen={setOrderSnackbar}/>
       </main>

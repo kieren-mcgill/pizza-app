@@ -8,14 +8,14 @@ import { makeDate } from "./makeDate";
 
 
 const PreviousOrderSummary = () => {
-  const { id } = useParams();
+  const { orderid } = useParams();
   const [order, setOrder] = useState(undefined);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     axios({
       method: 'get',
-      url: `${baseUrl}/orders/${id}.json`,
+      url: `${baseUrl}/orders/${orderid}.json`,
     }).then(({ data }) => {
       if (data) {
         setOrder(data)
@@ -62,7 +62,7 @@ const PreviousOrderSummary = () => {
           <Typography>{makeDate(order.timestamp)}</Typography>
         </Grid>
       </Grid>
-      <Basket readOnly pizzaArray={order.basket}/>
+      <Basket readOnly order={{ ...order, id: orderid }} pizzaArray={order.basket}/>
     </>
   )
 }
