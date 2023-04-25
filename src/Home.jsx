@@ -2,20 +2,22 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./Header";
 import CreateButton from "./CreateButton";
 import Basket from "./Basket";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PizzaForm from "./PizzaForm";
 import PreviousOrders from "./PreviousOrders"
 import PizzaNotFound from "./PizzaNotFound";
-import CreateOrderForm from "./CreateOrderForm";
-import PreviousOrderSummary from "./PreviousOrderSummary";
 import { getOrdersApi } from "./firebase-client";
 import PreviousPizzaSummary from "./PreviousPizzaSummary";
+import PreviousOrderSummary from "./PreviousOrderSummary";
+import OurSnackbar from "./OurSnackbar";
+import CreateOrderForm from "./CreateOrderForm";
 
 
 const Home = () => {
 
   const [pizzaArray, setPizzaArray] = useState([])
   const [previousOrders, updatedPreviousOrders] = useState([])
+  const [orderSnackbar, setOrderSnackbar] = useState(false);
 
   const addPizza = (pizza) => {
     setPizzaArray([...pizzaArray, pizza])
@@ -24,8 +26,14 @@ const Home = () => {
   const getOrderList = () => {
     getOrdersApi()
       .then(updatedPreviousOrders)
-    console.log(previousOrders)
-  };
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOrderSnackbar(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -37,15 +45,15 @@ const Home = () => {
           <Route path="/" element={(<CreateButton/>)}/>
           <Route path="/basket" element={(<Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>)}/>
           <Route path="/pizza-form" element={(<PizzaForm addPizza={addPizza}/>)}/>
-          <Route path="*" element={<p>Page Not Found</p>}/>
-          <Route path="/order-form" element={(<CreateOrderForm/>)}/>
+          <Route path="/order-form" element={(<CreateOrderForm pizzaArray={pizzaArray} setPizzaArray={setPizzaArray} setOrderSnackbar={setOrderSnackbar}/>)}/>
+          <Route path="*" element={<PizzaNotFound/>}/>
           <Route path="/previous-order-summary/:orderid">
             <Route index element={(<PreviousOrderSummary/>)}/>
             <Route path=":pizzaid" element={<PreviousPizzaSummary/>}/>
           </Route>
           <Route path="/previous-orders" element={(<PreviousOrders getOrderList={getOrderList} previousOrders={previousOrders} />)}/>
-          <Route path="*" element={<PizzaNotFound/>}/>
         </Routes>
+        <OurSnackbar severity="success" message="We received your order!" open={orderSnackbar} setOpen={setOrderSnackbar}/>
       </main>
     </>
   )
