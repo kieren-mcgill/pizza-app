@@ -6,7 +6,7 @@ import { toppings } from "./toppings";
 const ToppingAdder = ({ topping, amount, increaseNumber, decreaseNumber }) => {
 
   return (
-    <Grid direction='row' container pt={2} spacing={{ xs: 2, md: 3 }} alignItems="center">
+    <Grid  direction='row' container pt={2} spacing={{ xs: 2, md: 3 }} alignItems="center">
       <Grid item flexGrow={1}>
         {toppings[topping].label}
       </Grid>

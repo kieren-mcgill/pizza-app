@@ -29,7 +29,7 @@ const Basket = ({ pizzaArray, setPizzaArray}) => {
       <Typography variant="h3">Basket</Typography>
       <StyledCard>
         {pizzaArray.length === 0 && (
-          <Typography>You haven't added anything yet. Get ordering!</Typography>
+          <Typography>You haven't added anything yet. Get creating!</Typography>
         )}
         <List>
           {pizzaArray.map((pizza, i) => (

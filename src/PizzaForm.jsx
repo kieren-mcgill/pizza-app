@@ -4,21 +4,21 @@ import React, { useState } from "react";
 import ToppingAdder from "./ToppingAdder";
 import { toppingKeys } from "./toppings";
 import { getPizzaPrice } from "./prices";
-import fon3 from "./img/fon3.jpg"
+import form from "./img/form.jpg"
 
 import  OurSnackbar  from "./OurSnackbar";
 import { v4 as uuidv4 } from 'uuid';
 import { css } from "@emotion/css";
-//
+
 const backgroundClass = css`
-  background-image: url(${fon3});
+  background-image: url(${form});
   background-size: cover;
   height: 100%;
   width: 100%;
   top: 0;
   left: 0;
   z-index: -1;
-  color: #FFFF;
+  color: white;
 `;
 
 const PizzaForm = ({ addPizza }) => {
@@ -90,14 +90,30 @@ const PizzaForm = ({ addPizza }) => {
 
   return (
     <div className={backgroundClass}>
-    <Container >
+    <Container  >
       <h1 style={{margin:"0 0 15px 0"}}>Create your pizza</h1>
-      <FormControl>
+      <FormControl style={{backgroundColor: "#211e1f"}}>
         <InputLabel style={{color: "white"}} id="base">Select your base</InputLabel>
-        <Select style={{color: "white"}} id="base" label="Select your base" onChange={handleChange} value={pizza.base}>
+        <Select
+          style={{
+            backgroundColor: "white",
+            color: "#211e1f",
+            margin: "10px",
+            border: "1px solid white"
+        }}
+          id="base"
+          label="Select your base"
+          onChange={handleChange}
+          value={pizza.base}>
           {baseKeys.map((base, i) => (
-            <MenuItem  key={i} value={base}>
-                <Grid container>
+            <MenuItem
+              style={{
+                backgroundColor: "white",
+                color: "#211e1f"
+            }}
+              key={i}
+              value={base}>
+                <Grid container >
                   <Grid item flexGrow={1}>
                     {bases[base].label}
                   </Grid>
@@ -119,15 +135,22 @@ const PizzaForm = ({ addPizza }) => {
             amount={pizza.toppings[topping]}
           />
         ))}
-        <Grid container>
+        <Grid container >
           <Grid item flexGrow={1}>
-            <Typography variant="h5">Total price:</Typography>
+            <Typography padding="10px" margin="10px" variant="h5">Total price:</Typography>
           </Grid>
           <Grid item>
-        <Typography variant="h5">£ {((totalPrice)/100).toFixed(2)} </Typography>
+        <Typography padding="10px" margin="10px" variant="h5">£ {((totalPrice)/100).toFixed(2)} </Typography>
           </Grid>
         </Grid>
-        <Button style={{color: "white"}} onClick={handleSubmit}>Add Your Pizza</Button>
+        <Button variant="contained"
+                color="warning"
+                sx={{height: '70px' }}
+                style={{
+                  color: "white",
+                  fontSize: "1.5rem",
+                margin: "10px"}}
+                onClick={handleSubmit}>Add Your Pizza</Button>
       </FormControl>
       <OurSnackbar severity="success" message="Pizza Added To Basket :)" open={open} setOpen={setOpen}/>
     </Container>
