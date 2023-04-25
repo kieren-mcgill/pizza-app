@@ -8,6 +8,7 @@ import { getPizzaPrice } from "./prices";
 
 import OurSnackbar from "./OurSnackbar";
 import { v4 as uuidv4 } from 'uuid';
+import { isEmpty } from "lodash";
 
 const PizzaForm = ({ previousPizza, addPizza }) => {
 
@@ -19,11 +20,7 @@ const PizzaForm = ({ previousPizza, addPizza }) => {
     return initialToppings;
   }
 
-  let readOnly = false;
-
-  if (previousPizza) {
-    readOnly = true;
-  }
+  const readOnly = !isEmpty(previousPizza)
 
   const [pizza, setPizza] = useState(
     previousPizza ? previousPizza :

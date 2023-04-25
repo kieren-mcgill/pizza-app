@@ -16,8 +16,6 @@ const PreviousOrders = () => {
 
   const sortedPreviousOrders = sortBy(previousOrders, ['timestamp']).reverse();
 
-  console.log(sortedPreviousOrders)
-
   return (
     <>
       <Typography>
