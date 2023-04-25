@@ -5,6 +5,7 @@ import { css } from "@emotion/css";
 
 const Header = ({ pizzaArray }) => {
 
+
   const buttonCss = css`
   .MuiBadge-root {
     color: black;
@@ -14,12 +15,12 @@ const Header = ({ pizzaArray }) => {
 
     <Grid container alignItems='center'>
       <Grid item flexGrow={1}>
-        <Link to="/">
+        <Link to="/" >
           <Button>Pizza Shop</Button>
         </Link>
       </Grid>
       <Grid item>
-        <Link to="/previous-orders"><ReceiptLong/></Link>
+        <Link to="/previous-orders" className={buttonCss}><ReceiptLong/></Link>
       </Grid>
       <Grid item px={2}>
         <Link to="/basket" className={buttonCss}>
