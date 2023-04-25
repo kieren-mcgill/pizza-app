@@ -1,48 +1,65 @@
 import { bases } from "./bases";
-import { Card, Container, Grid, IconButton, List, ListItem, styled, Typography } from "@mui/material";
+import { Box, Button, Card, Container, Grid, IconButton, List, ListItem, styled, Typography } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import OurSnackbar from "./OurSnackbar";
 import React, { useState } from "react";
 import { getBasketPrice, getPizzaPrice } from "./prices";
+import { useNavigate } from "react-router-dom";
+import { css } from "@emotion/css";
+
+const headingCss = css`
+  color: #FFFF;
+  text-shadow: 3px 3px black;
+  background-color: #343434;
+  
+`;
 
 const StyledCard = styled(Card)({
-  backgroundColor: '#dce1eb',
+  backgroundColor: '#343434',
   boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.1)',
   padding: '16px',
+  color: "white"
 });
 
-const Basket = ({ pizzaArray, setPizzaArray}) => {
+const Basket = ({ order, readOnly, pizzaArray, setPizzaArray }) => {
+
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const deleteFromBasket = (pizza) => {
-    const modifiedBasket = pizzaArray.filter((p) =>  p.id !== pizza.id)
+    const modifiedBasket = pizzaArray.filter((p) => p.id !== pizza.id)
     setPizzaArray(modifiedBasket)
     handleOpen()
   }
 
-  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   }
 
+  const goToPizza = (pizza) => {
+    navigate(`/previous-order-summary/${order.id}/${pizza.id}`)
+  }
+
   return (
     <Container>
-      <Typography variant="h3">Basket</Typography>
+      <Typography className={headingCss} variant="h3">Basket</Typography>
       <StyledCard>
         {pizzaArray.length === 0 && (
           <Typography>You haven't added anything yet. Get creating!</Typography>
         )}
         <List>
           {pizzaArray.map((pizza, i) => (
-            <ListItem key={i}>
+            <ListItem button={readOnly} onClick={readOnly ? () => goToPizza(pizza) : undefined} key={i}>
               <Grid item flexGrow={1}>
                 <Typography>{`${(bases[pizza.base].label)}`}</Typography>
               </Grid>
               <Grid item flexend={1}>
                 <Typography>{`£ ${(getPizzaPrice(pizza) / 100).toFixed(2)}`}</Typography>
               </Grid>
-              <IconButton onClick={() => deleteFromBasket(pizza)}>
-                <DeleteForeverIcon/>
-              </IconButton>
+              {!readOnly && (
+                <IconButton onClick={() => deleteFromBasket(pizza)}>
+                  <DeleteForeverIcon/>
+                </IconButton>)}
             </ListItem>
           ))}
         </List>
@@ -55,6 +72,11 @@ const Basket = ({ pizzaArray, setPizzaArray}) => {
           </Grid>
         </Grid>
       </StyledCard>
+
+      {(!readOnly && pizzaArray.length > 0) && (
+        <Box textAlign='center' sx={{ m: 2 }}>
+          <Button onClick={() => navigate('/order-form')} color='warning' size="large" variant="contained">Order Now!</Button>
+        </Box>)}
       <OurSnackbar severity="warning" message="Pizza Deleted From Basket" open={open} setOpen={setOpen}/>
     </Container>
   );

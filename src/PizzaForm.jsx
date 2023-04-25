@@ -5,8 +5,9 @@ import ToppingAdder from "./ToppingAdder";
 import { toppingKeys } from "./toppings";
 import { getPizzaPrice } from "./prices";
 import form from "./img/form.jpg"
+import { isEmpty } from "lodash";
 
-import  OurSnackbar  from "./OurSnackbar";
+import OurSnackbar from "./OurSnackbar";
 import { v4 as uuidv4 } from 'uuid';
 import { css } from "@emotion/css";
 
@@ -21,7 +22,7 @@ const backgroundClass = css`
   color: white;
 `;
 
-const PizzaForm = ({ addPizza }) => {
+const PizzaForm = ({ previousPizza, addPizza }) => {
 
   const getToppingsState = () => {
     const initialToppings = {};
@@ -31,11 +32,14 @@ const PizzaForm = ({ addPizza }) => {
     return initialToppings;
   }
 
+  const readOnly = !isEmpty(previousPizza)
+
   const [pizza, setPizza] = useState(
-    {
-      base: "largeDeepPan",
-      toppings: getToppingsState(),
-    }
+    previousPizza ? previousPizza :
+      {
+        base: "largeDeepPan",
+        toppings: getToppingsState(),
+      }
   )
 
   const handleChange = (e) => {
@@ -89,45 +93,56 @@ const PizzaForm = ({ addPizza }) => {
   }
 
   return (
-    <div className={backgroundClass}>
-    <Container  >
-      <h1 style={{margin:"0 0 15px 0"}}>Create your pizza</h1>
-      <FormControl style={{backgroundColor: "#211e1f"}}>
-        <InputLabel style={{color: "white"}} id="base">Select your base</InputLabel>
-        <Select
-          style={{
-            backgroundColor: "white",
-            color: "#211e1f",
-            margin: "10px",
-            border: "1px solid white"
-        }}
-          id="base"
-          label="Select your base"
-          onChange={handleChange}
-          value={pizza.base}>
-          {baseKeys.map((base, i) => (
-            <MenuItem
+    <Container className={backgroundClass}>
+      <Typography style={{ margin: "0 0 15px 0" }}
+                  variant="h4">{readOnly ? "Previous pizza" : "Create your pizza"}</Typography>
+      <FormControl style={{ backgroundColor: "#211e1f" }}>
+        {readOnly ?
+          <Typography pt={2}>{bases[pizza.base].label} £ {(bases[pizza.base].price / 100).toFixed(2)}</Typography>
+          :
+          <>
+            <InputLabel style={{ color: "white" }} id="base">Select your base</InputLabel>
+            <Select
+              disabled={readOnly}
               style={{
                 backgroundColor: "white",
-                color: "#211e1f"
-            }}
-              key={i}
-              value={base}>
-                <Grid container >
-                  <Grid item flexGrow={1}>
-                    {bases[base].label}
+                color: "#211e1f",
+                margin: "10px",
+                border: "1px solid white"
+              }}
+              id="base"
+              label="Select your base"
+              onChange={handleChange}
+              value={pizza.base}
+            >
+              {baseKeys.map((base, i) => (
+                <MenuItem
+                  style={{
+                    backgroundColor: "white",
+                    color: "#211e1f"
+                  }}
+                  key={i}
+                  value={base}
+                >
+                  <Grid container>
+                    <Grid item flexGrow={1}>
+                      {bases[base].label}
+                    </Grid>
+                    <Grid item flexend={1}>
+                      £ {(bases[base].price / 100).toFixed(2)}
+                    </Grid>
                   </Grid>
-                  <Grid item flexend={1}>
-                    £ {(bases[base].price/100).toFixed(2)}
-                  </Grid>
-                </Grid>
-            </MenuItem>
-          ))}
-        </Select>
-        <Typography pt={2}>You can have as many toppings as you think will fit on your pizza! You can add up to two of
-          each topping.</Typography>
+                </MenuItem>
+              ))}
+            </Select>
+          </>
+        }
+        {!readOnly && (
+          <Typography pt={2}>You can have as many toppings as you think will fit on your pizza! You can add up to two of
+            each topping.</Typography>)}
         {toppingKeys.map((topping, i) => (
           <ToppingAdder
+            readOnly={readOnly}
             key={i}
             topping={topping}
             increaseNumber={increaseNumber}
@@ -135,26 +150,32 @@ const PizzaForm = ({ addPizza }) => {
             amount={pizza.toppings[topping]}
           />
         ))}
-        <Grid container >
+        <Grid p={2} container>
           <Grid item flexGrow={1}>
             <Typography padding="10px" margin="10px" variant="h5">Total price:</Typography>
           </Grid>
           <Grid item>
-        <Typography padding="10px" margin="10px" variant="h5">£ {((totalPrice)/100).toFixed(2)} </Typography>
+            <Typography padding="10px" margin="10px" variant="h5">£ {((totalPrice) / 100).toFixed(2)}</Typography>
           </Grid>
         </Grid>
-        <Button variant="contained"
-                color="warning"
-                sx={{height: '70px' }}
-                style={{
-                  color: "white",
-                  fontSize: "1.5rem",
-                margin: "10px"}}
-                onClick={handleSubmit}>Add Your Pizza</Button>
+        {!readOnly && (
+          <Button
+            variant="contained"
+            color="warning"
+            sx={{ height: '70px' }}
+            style={{
+              color: "white",
+              fontSize: "1.5rem",
+              margin: "10px"
+            }}
+            onClick={handleSubmit}
+          >
+            Add Your Pizza
+          </Button>
+        )}
       </FormControl>
-      <OurSnackbar severity="success" message="Pizza Added To Basket :)" open={open} setOpen={setOpen}/>
+      <OurSnackbar severity="success" message="Pizza Added To Basket &#128513;" open={open} setOpen={setOpen}/>
     </Container>
-    </div>
   )
 }
 
