@@ -14,7 +14,7 @@ const ToppingAdder = ({ topping, amount, increaseNumber, decreaseNumber }) => {
         £ {(toppings[topping].price/100).toFixed(2)}
       </Grid>
       <Grid item>
-        <IconButton onClick={() => decreaseNumber(topping)} disabled={amount > 0 ? false : true}>
+        <IconButton style={{color: "white"}} onClick={() => decreaseNumber(topping)} disabled={amount > 0 ? false : true}>
           <RemoveCircleOutlineIcon/>
         </IconButton>
       </Grid>
@@ -22,7 +22,7 @@ const ToppingAdder = ({ topping, amount, increaseNumber, decreaseNumber }) => {
         {amount}
       </Grid>
       <Grid item>
-        <IconButton onClick={() => increaseNumber(topping)} disabled={amount < 2 ? false : true}>
+        <IconButton style={{color: "white"}} onClick={() => increaseNumber(topping)} disabled={amount < 2 ? false : true}>
           <AddCircleOutlineIcon/>
         </IconButton>
       </Grid>

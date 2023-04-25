@@ -4,10 +4,22 @@ import React, { useState } from "react";
 import ToppingAdder from "./ToppingAdder";
 import { toppingKeys } from "./toppings";
 import { getPizzaPrice } from "./prices";
-
+import fon3 from "./img/fon3.jpg"
 
 import  OurSnackbar  from "./OurSnackbar";
 import { v4 as uuidv4 } from 'uuid';
+import { css } from "@emotion/css";
+//
+const backgroundClass = css`
+  background-image: url(${fon3});
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  color: #FFFF;
+`;
 
 const PizzaForm = ({ addPizza }) => {
 
@@ -77,13 +89,14 @@ const PizzaForm = ({ addPizza }) => {
   }
 
   return (
-    <Container>
+    <div className={backgroundClass}>
+    <Container >
       <h1>Create your pizza</h1>
       <FormControl>
-        <InputLabel id="base">Select your base</InputLabel>
-        <Select id="base" label="Select your base" onChange={handleChange} value={pizza.base}>
+        <InputLabel style={{color: "white"}} id="base">Select your base</InputLabel>
+        <Select style={{color: "white"}} id="base" label="Select your base" onChange={handleChange} value={pizza.base}>
           {baseKeys.map((base, i) => (
-            <MenuItem key={i} value={base}>
+            <MenuItem  key={i} value={base}>
                 <Grid container>
                   <Grid item flexGrow={1}>
                     {bases[base].label}
@@ -114,10 +127,11 @@ const PizzaForm = ({ addPizza }) => {
         <Typography variant="h5">£ {((totalPrice)/100).toFixed(2)} </Typography>
           </Grid>
         </Grid>
-        <Button onClick={handleSubmit}>Add Your Pizza</Button>
+        <Button style={{color: "white"}} onClick={handleSubmit}>Add Your Pizza</Button>
       </FormControl>
       <OurSnackbar severity="success" message="Pizza Added To Basket :)" open={open} setOpen={setOpen}/>
     </Container>
+    </div>
   )
 }
 

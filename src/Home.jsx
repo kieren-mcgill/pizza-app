@@ -5,7 +5,6 @@ import Basket from "./Basket";
 import { useState } from "react";
 import PizzaForm from "./PizzaForm";
 
-
 const Home = () => {
 
   const [pizzaArray, setPizzaArray] = useState([])
@@ -19,7 +18,7 @@ const Home = () => {
       <header>
         <Header pizzaArray={pizzaArray} />
       </header>
-      <main>
+      <main >
         <Routes>
           <Route path="/" element={(<CreateButton/>)}/>
           <Route path="/basket" element={(<Basket pizzaArray={pizzaArray} setPizzaArray={setPizzaArray}/>)}/>
