@@ -1,55 +1,26 @@
-# Getting Started with Create React App
+# Pizza Order App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Created as part of a team of eight, in a 1-week sprint, using React and Firebase.
 
-## Available Scripts
+### User story
 
-In the project directory, you can run:
+As a user ...
+...I want to create a pizza by specifying a base and adding toppings
+...So that I can see the pizza combination I have created
 
-### `npm start`
+As a user ...
+...I want to see what my pizzas will cost
+...So that I know how much I will have to pay
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+As a user ...
+...I want to create orders from my basket
+...so that I send an order for, and eventually enjoy, the pizzas I have created
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+As a user ...
+...I want to see my previous orders
+...so that I can relive the memories of the pretend pizzas I have created
 
-### `npm run build`
+As a user ...
+...I want to delete the pizzas in my basket
+...so that I can change my basket if I have made a mistake
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
